@@ -28,17 +28,21 @@ import org.springframework.context.annotation.ComponentScan;
 
 public class PayExApplication {
 
+    @Autowired
+
+    TvShowController tvShowController ;
+
+
 
     public static void main(String[] args) {
 
         SpringApplication.run(PayExApplication.class, args);
-        TvShowController tvShowController = new TvShowController();
-        readFromApi2(tvShowController);
+        readFromApi2();
 
     }
 
 
-    public static void readFromApi2(TvShowController tvShowController) {
+    public static void readFromApi2() {
         ObjectMapper objectMapper = new ObjectMapper();
 
         List<Genres> genresList = new ArrayList<>();
