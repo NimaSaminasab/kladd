@@ -20,11 +20,15 @@ public class TvShowController {
         return tvShowService.getListOfAllTvShow() ;
     }
     @PostMapping("/createTvShow")
-    public void createTvShow(@RequestBody TvShow tvShow){
-         tvShowService.createTvShow(tvShow) ;
+    public void createTvShow( TvShow tvShow){
+        System.out.println("hei" + tvShow.getRating());
+        tvShowService.createTvShow(tvShow) ;
+        System.out.println("hei2" + tvShow.getRating());
+
+
     }
 
-    @DeleteMapping("/deleteTvShow/{id}")
+   @DeleteMapping("/deleteTvShow/{id}")
     public void deleteTvShow(@PathVariable long id){
         TvShow tvShow = tvShowService.findById(id) ;
         if(tvShow!=null)

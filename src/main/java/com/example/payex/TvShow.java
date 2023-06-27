@@ -16,7 +16,7 @@ public class TvShow {
     private String name ;
 
     @Column(name="RATING")
-     private float rating ;
+     private double rating ;
     @Column(name="EPISODECOUNT")
 
     private int episodeCount ;
@@ -24,16 +24,34 @@ public class TvShow {
     private int releasedEpisodeCount ;
     @Column(name="SUMMARY")
     private String summary;
+    @Column(name="Genre")
+    private List<Genres> genres ;
+
+    @Override
+    public String toString() {
+        return "TvShow{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", rating=" + rating +
+                ", episodeCount=" + episodeCount +
+                ", releasedEpisodeCount=" + releasedEpisodeCount +
+                ", summary='" + summary + '\'' +
+                ", genres=" + genres +
+                ", imdbLink='" + imdbLink + '\'' +
+                '}';
+    }
+
     @Column(name="IMDBLINK")
     private String imdbLink;
 
 
 
-    public TvShow(long id, String name, float rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
+    public TvShow(int id, String name, List<Genres> genres ,double rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
         this.id = id;
         this.name = name;
         this.rating = rating;
         this.episodeCount = episodeCount;
+        this.genres = genres ;
         this.releasedEpisodeCount = releasedEpisodeCount;
         this.summary = summary;
         this.imdbLink = imdbLink;
@@ -41,6 +59,8 @@ public class TvShow {
     public TvShow() {
 
     }
+
+
 
     public long getId() {
         return id;
@@ -59,11 +79,19 @@ public class TvShow {
     }
 
 
-    public float getRating() {
+    public List<Genres> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genres> genres) {
+        this.genres = genres;
+    }
+
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -98,4 +126,5 @@ public class TvShow {
     public void setImdbLink(String imdbLink) {
         this.imdbLink = imdbLink;
     }
+
 }
