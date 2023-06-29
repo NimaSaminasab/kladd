@@ -1,8 +1,6 @@
 package com.example.payex;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +20,11 @@ public class TvShow {
     private int episodeCount ;
     @Column(name="RELEASEDEPISODE")
     private int releasedEpisodeCount ;
-    @Column(name="SUMMARY")
+
+    @Column(columnDefinition = "CLOB")
     private String summary;
     @Column(name="Genre")
+    @Enumerated(EnumType.STRING)
     private List<Genres> genres ;
 
     @Override

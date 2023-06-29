@@ -21,9 +21,7 @@ public class TvShowController {
     }
     @PostMapping("/createTvShow")
     public void createTvShow( TvShow tvShow){
-        System.out.println("hei" + tvShow.getRating());
         tvShowService.createTvShow(tvShow) ;
-        System.out.println("hei2" + tvShow.getRating());
 
 
     }

@@ -12,8 +12,6 @@ public class TvShowService {
     TvShowRepository tvShowRepository ;
 
     public TvShow createTvShow(TvShow tvShow){
-        System.out.println("God dag");
-        System.out.println(tvShow.toString());
         return tvShowRepository.save(tvShow) ;
     }
     public void deleteTvShow(TvShow tvShow){
