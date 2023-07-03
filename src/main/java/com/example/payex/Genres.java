@@ -8,6 +8,7 @@ public enum Genres {
     CHILDREN,
     COMEDY,
     CRIME,
+    DIY,
     DRAMA ,
     ESPOINAGE,
     FAMILY,

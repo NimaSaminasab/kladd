@@ -23,6 +23,9 @@ public class TvShowService {
     public TvShow findById(long id){
         return tvShowRepository.findById(id).orElse(null);
     }
+    public List<TvShow> findAllByOrderByRatingDesc(){
+       return tvShowRepository.findAllByOrderByRatingDesc();
+    }
 
 
 }

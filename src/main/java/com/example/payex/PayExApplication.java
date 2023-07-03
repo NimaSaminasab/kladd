@@ -51,6 +51,7 @@ public class PayExApplication implements ApplicationContextAware {
         }
 
 
+
     }
 
     private static List<String> readFromFile() {
@@ -76,6 +77,7 @@ public class PayExApplication implements ApplicationContextAware {
         String url2 = "https://api.tvmaze.com/singlesearch/shows?q=" + Tvshow;
 
         List<Genres> genresList = new ArrayList<>();
+        List<Showday> showdayList = new ArrayList<>();
         try {
             URL url = new URL(url2);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -97,6 +99,10 @@ public class PayExApplication implements ApplicationContextAware {
                 JsonNode jsonNode = objectMapper.readTree(String.valueOf(infoString));
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(String.valueOf(infoString));
                 JSONArray jsonArray = (JSONArray) jsonObject.get("genres");
+                JSONObject scheduleObject = (JSONObject) jsonObject.get("schedule");
+                JSONArray daysArray = (JSONArray) scheduleObject.get("days");
+
+
                 String nameOfGenre = "";
                 String inLowercase = "";
 
@@ -104,22 +110,23 @@ public class PayExApplication implements ApplicationContextAware {
                 for (int i = 0; i < jsonArray.size(); i++) {
                     inLowercase = (String) jsonArray.get(i);
                     nameOfGenre = "" + inLowercase.toUpperCase();
+                    if(nameOfGenre.equals("SCIENCE-FICTION"))
+                        nameOfGenre = "SCIENCE_FICTION" ;
 
                     genresList.add(Genres.valueOf(nameOfGenre));
                 }
-                for (int i = 0; i < genresList.size(); i++) {
-                    System.out.println(genresList.get(i));
-                }
+
                 int id = jsonNode.get("id").asInt();
                 String name = jsonNode.get("name").asText();
-
+                String imdb = jsonNode.get("externals").get("imdb").asText();
                 Double rating = jsonNode.get("rating").get("average").asDouble();
                 String summary = jsonNode.get("summary").asText();
-
                 String finalSummary = removeTags(summary);
 
+                showdayList = days(daysArray);
 
-                TvShow tvShow = new TvShow(id, name, genresList, rating, 60, 54, finalSummary, "Link");
+
+                TvShow tvShow = new TvShow(id, name, showdayList, genresList, rating, 60, 54, finalSummary, imdb);
                 ctx.getBean(TvShowController.class).createTvShow(tvShow);
 
 
@@ -146,6 +153,17 @@ public class PayExApplication implements ApplicationContextAware {
         }
 
         return correctedSummary.toString();
+    }
+
+    public static List<Showday> days(JSONArray daysArray) {
+        String day;
+        List<Showday> showdays = new ArrayList<>();
+
+        for (int i = 0; i < daysArray.size(); i++) {
+            day = (String) daysArray.get(i);
+            showdays.add(Showday.valueOf(day.toUpperCase()));
+        }
+        return showdays;
     }
 
     @Override

@@ -27,6 +27,10 @@ public class TvShow {
     @Enumerated(EnumType.STRING)
     private List<Genres> genres ;
 
+    @Column(name= "ShowDay")
+    @Enumerated(EnumType.STRING)
+    private  List<Showday> showdays ;
+
     @Override
     public String toString() {
         return "TvShow{" +
@@ -46,12 +50,13 @@ public class TvShow {
 
 
 
-    public TvShow(int id, String name, List<Genres> genres ,double rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
+    public TvShow(int id, String name, List<Showday> showdays, List<Genres> genres ,double rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
         this.id = id;
         this.name = name;
         this.rating = rating;
         this.episodeCount = episodeCount;
         this.genres = genres ;
+        this.showdays = showdays ;
         this.releasedEpisodeCount = releasedEpisodeCount;
         this.summary = summary;
         this.imdbLink = imdbLink;
@@ -85,6 +90,14 @@ public class TvShow {
 
     public void setGenres(List<Genres> genres) {
         this.genres = genres;
+    }
+
+    public List<Showday> getShowdays() {
+        return showdays;
+    }
+
+    public void setShowdays(List<Showday> showdays) {
+        this.showdays = showdays;
     }
 
     public double getRating() {
