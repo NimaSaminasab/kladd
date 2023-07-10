@@ -12,6 +12,10 @@ public class TvShow {
     private long id ;
     @Column(name="NAME")
     private String name ;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tvShow")
+    private List<Season> seasonList;
+
+
 
     @Column(name="RATING")
      private double rating ;
@@ -50,9 +54,10 @@ public class TvShow {
 
 
 
-    public TvShow(int id, String name, List<Showday> showdays, List<Genres> genres ,double rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
+    public TvShow(int id, String name,List<Season> seasonList, List<Showday> showdays, List<Genres> genres ,double rating, int episodeCount, int releasedEpisodeCount, String summary, String imdbLink) {
         this.id = id;
         this.name = name;
+        this.seasonList = new ArrayList<>();
         this.rating = rating;
         this.episodeCount = episodeCount;
         this.genres = genres ;
@@ -139,5 +144,15 @@ public class TvShow {
     public void setImdbLink(String imdbLink) {
         this.imdbLink = imdbLink;
     }
+
+    public void addSeason(Season season){
+        season.setTvShow(this);
+        seasonList.add(season);
+    }
+    public List<Season> getSeasonList(){
+        return seasonList ;
+    }
+
+
 
 }

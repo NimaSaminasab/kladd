@@ -29,7 +29,6 @@ public class TvShowController {
 
 
     }
-
     @DeleteMapping("/deleteTvShow/{id}")
     public void deleteTvShow(@PathVariable long id) {
         TvShow tvShow = tvShowService.findById(id);
@@ -43,7 +42,6 @@ public class TvShowController {
         print(result);
         return result;
     }
-
 
     public void print(List<TvShow> printMe) {
         String filePath = "C:/Users/nimas/Desktop/ratings.txt";
@@ -59,10 +57,10 @@ public class TvShowController {
             writer.write(output);
             writer.close();
 
-            System.out.println("Data has been written to the file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }
